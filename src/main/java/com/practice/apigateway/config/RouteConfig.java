@@ -1,0 +1,20 @@
+package com.practice.apigateway.config;
+
+import org.springframework.cloud.gateway.route.RouteLocator;
+import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class RouteConfig {
+
+  @Bean
+  public RouteLocator gatewayRouter(RouteLocatorBuilder builder) {
+     return builder.routes()
+             .route(r-> r.path("/currency-exchange/**")
+                     .uri("lb://currency-exchange"))
+             .route(r -> r.path("/currency-conversion/**")
+                     .uri("lb://currency-conversion"))
+             .build();
+  }
+}
